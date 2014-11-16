@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.christophelg</groupId>
+		<artifactId>jnlp-via-maven-example</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>business-webapp</artifactId>
+	<packaging>war</packaging>
+	<name>business-app Via JNLP</name>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>business-app</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.mojo.webstart</groupId>
+			<artifactId>webstart-jnlp-servlet</artifactId>
+			<version>1.0-6.0.02_ea_b02.2</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>business-webapp</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-beta-2</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>jnlp-download-servlet</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectoryName>webstart</outputDirectoryName>
+
+					<jnlpFiles>
+						<jnlpFile>
+							<templateFilename>template.vm</templateFilename>
+							<!-- when there's only one jnlpFile, can be optional and defaults 
+								to launch.jnlp -->
+							<outputFilename>launch.jnlp</outputFilename>
+							<jarResources>
+								<jarResource>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>business-app</artifactId>
+									<version>${project.version}</version>
+									<mainClass>com.github.christophelg.jnlp.SimpleSwingApp</mainClass>
+								</jarResource>
+							</jarResources>
+						</jnlpFile>
+					</jnlpFiles>
+
+					<libPath>lib</libPath>
+
+					<sign>
+						<keystore>SimpleSwingApp-keystore</keystore>
+						<keypass>calypso</keypass>
+						<storepass>calypso</storepass>
+						<alias>calypso</alias>
+						<!-- 10 years -->
+						<validity>3650</validity>
+
+						<dnameCn>CMQA IT Team</dnameCn>
+						<dnameOu>CMQA</dnameOu>
+						<dnameO>CLG Organization</dnameO>
+						<dnameL>Paris</dnameL>
+						<dnameSt>France</dnameSt>
+						<dnameC>FR</dnameC>
+
+						<verify>true</verify>
+						<keystoreConfig>
+							<delete>true</delete>
+							<gen>true</gen>
+						</keystoreConfig>
+					</sign>
+
+					<pack200>false</pack200>
+					<gzip>true</gzip>
+					<outputJarVersions>false</outputJarVersions>
+					<verbose>false</verbose>
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
