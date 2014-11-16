@@ -15,5 +15,5 @@ The project is composed of 2 projects
 
 ## External References
 
-[Someone Else Journey](http://www.shaunabram.com/swing-webstart-maven-example/)
-[webstart-maven-plugin Documentation](http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html)
+* [Someone Else Journey](http://www.shaunabram.com/swing-webstart-maven-example/)
+* [webstart-maven-plugin Documentation](http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html)
